@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/WorkboardMini/Editor/View/WorkboardMini.uss?fileID=7433441132597879392&amp;guid=e5b2c54e28ea1694096c371f9f259154&amp;type=3#WorkboardMini" />
+    <uie:Toolbar>
+        <uie:ToolbarButton text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+    </uie:Toolbar>
+    <ui:TwoPaneSplitView name="MainSplitView" orientation="Vertical" class="unity-two-pane-split-view" style="height: auto;">
+        <ui:TwoPaneSplitView name="MainSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
+            <ui:VisualElement name="LeftPane">
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+            <ui:VisualElement name="RightPane">
+                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+            </ui:VisualElement>
+        </ui:TwoPaneSplitView>
+        <ui:VisualElement name="BottomPane" />
+    </ui:TwoPaneSplitView>
+</ui:UXML>
