@@ -46,6 +46,8 @@ public class WorkboardMini : EditorWindow
         _duplicateToolbarButton.clicked += OnClickDuplicate;
 
         _deleteToolbarButton = _toolbar.Q<ToolbarButton>("DeleteButton");
+        _deleteToolbarButton.clicked += OnClickDelete;
+
         _saveToolbarButton = _toolbar.Q<ToolbarButton>("SaveButton");
 
         // SplitView
@@ -225,6 +227,7 @@ public class WorkboardMini : EditorWindow
             return;
         }
 
+        // Undo対応
         Undo.RecordObject(_workboardMiniData, "Duplicate Task");
 
         int nextId = GetNextId();
@@ -259,5 +262,49 @@ public class WorkboardMini : EditorWindow
             _taskListView.ScrollToItem(insertIndex);
         }
     }
+
+    private void OnClickDelete()
+    {
+        if (_workboardMiniData == null)
+        {
+            Debug.LogError("WorkboardMiniData is null. Assign or load it before using Delete.");
+            return;
+        }
+
+        if (_selectedTaskItem == null)
+        {
+            Debug.LogWarning("Delete requires a selected TaskItem.");
+            return;
+        }
+
+        // 確認ダイアログ
+        bool ok = EditorUtility.DisplayDialog(
+            "Delete Task",
+            $"Delete \"{_selectedTaskItem.Title}\" ?",
+            "Delete",
+            "Cancel"
+        );
+        if (!ok) return;
+
+        // 現在のindexを保持（削除後の選択に使う）
+        int deleteIndex = _workboardMiniData.Items.IndexOf(_selectedTaskItem);
+
+        // Undo対応
+        Undo.RecordObject(_workboardMiniData, "Delete Task");
+
+        // 削除
+        _workboardMiniData.Items.Remove(_selectedTaskItem);
+
+        // Dirty
+        EditorUtility.SetDirty(_workboardMiniData);
+
+        // ListView更新
+        _taskListView?.Rebuild();
+
+        // 削除後、未選択
+        _taskListView.ClearSelection();
+        ShowSelectedTaskItemDetail(null);
+    }
+
 
 }
