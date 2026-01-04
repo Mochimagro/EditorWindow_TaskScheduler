@@ -10,7 +10,7 @@
     <ui:TwoPaneSplitView name="MainSplitView" orientation="Vertical" class="unity-two-pane-split-view" style="height: auto;">
         <ui:TwoPaneSplitView name="MainSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
             <ui:VisualElement name="LeftPane">
-                <ui:ListView picking-mode="Ignore" name="TaskList" style="flex-grow: 1;" />
+                <ui:ListView picking-mode="Ignore" name="TaskListView" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:VisualElement name="RightPane">
                 <ui:VisualElement name="Placeholder" style="flex-grow: 1;">

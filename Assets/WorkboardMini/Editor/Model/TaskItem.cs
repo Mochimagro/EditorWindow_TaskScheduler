@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class TaskItem
+[Serializable]public class TaskItem
 {
-    int _id;
-    string _title;
-    string _memo;
-    TaskStatus _status;
-    TaskPriority _priority;
-    string _dueDate;
+    [SerializeField]int _id;
+    [SerializeField] string _title;
+    public string Title { get { return _title; } set {  _title = value; } }
+    [SerializeField] string _memo;
+    [SerializeField] TaskStatus _status;
+    [SerializeField] TaskPriority _priority;
+    [SerializeField]string _dueDate;
     long _updatedAtTicks;
 }
