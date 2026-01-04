@@ -1,15 +1,28 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/WorkboardMini/Editor/View/WorkboardMini.uss?fileID=7433441132597879392&amp;guid=e5b2c54e28ea1694096c371f9f259154&amp;type=3#WorkboardMini" />
     <uie:Toolbar>
-        <uie:ToolbarButton text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+        <uie:ToolbarButton text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddButton" />
+        <uie:ToolbarButton text="Duplicate" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DuplicateButton" />
+        <uie:ToolbarButton text="Delete" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeleteButton" />
+        <uie:ToolbarButton text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveButton" />
+        <uie:ToolbarSearchField name="Search" />
     </uie:Toolbar>
     <ui:TwoPaneSplitView name="MainSplitView" orientation="Vertical" class="unity-two-pane-split-view" style="height: auto;">
         <ui:TwoPaneSplitView name="MainSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
             <ui:VisualElement name="LeftPane">
-                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:ListView picking-mode="Ignore" name="TaskList" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:VisualElement name="RightPane">
-                <ui:Label tabindex="-1" text="Label" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                <ui:VisualElement name="Placeholder" style="flex-grow: 1;">
+                    <ui:Label tabindex="-1" text="リストからタスクを選択してください" parse-escape-sequences="true" display-tooltip-when-elided="true" />
+                </ui:VisualElement>
+                <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: none;">
+                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Title" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="Status" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="Priority" />
+                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Memo" />
+                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Due" />
+                </ui:VisualElement>
             </ui:VisualElement>
         </ui:TwoPaneSplitView>
         <ui:VisualElement name="BottomPane" />
