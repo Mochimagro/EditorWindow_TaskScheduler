@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class TaskItem : MonoBehaviour
+public class TaskItem
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    int _id;
+    string _title;
+    string _memo;
+    TaskStatus _status;
+    TaskPriority _priority;
+    string _dueDate;
+    long _updatedAtTicks;
 }
