@@ -4,27 +4,23 @@
         <uie:ToolbarButton text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddButton" />
         <uie:ToolbarButton text="Duplicate" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DuplicateButton" />
         <uie:ToolbarButton text="Delete" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeleteButton" />
-        <uie:ToolbarButton text="Save" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SaveButton" />
-        <uie:ToolbarSearchField name="Search" />
+        <uie:ToolbarSearchField name="Search" style="display: none;" />
     </uie:Toolbar>
-    <ui:TwoPaneSplitView name="MainSplitView" orientation="Vertical" class="unity-two-pane-split-view" style="height: auto;">
-        <ui:TwoPaneSplitView name="TaskSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
-            <ui:VisualElement name="LeftPane">
-                <ui:ListView picking-mode="Ignore" name="TaskListView" style="flex-grow: 1;" />
+    <ui:TwoPaneSplitView name="TaskSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
+        <ui:VisualElement name="LeftPane">
+            <ui:ListView picking-mode="Ignore" name="TaskListView" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="RightPane">
+            <ui:VisualElement name="Placeholder" style="flex-grow: 1; display: none;">
+                <ui:Label tabindex="-1" text="リストからタスクを選択してください" parse-escape-sequences="true" display-tooltip-when-elided="true" />
             </ui:VisualElement>
-            <ui:VisualElement name="RightPane">
-                <ui:VisualElement name="Placeholder" style="flex-grow: 1; display: none;">
-                    <ui:Label tabindex="-1" text="リストからタスクを選択してください" parse-escape-sequences="true" display-tooltip-when-elided="true" />
-                </ui:VisualElement>
-                <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: flex;">
-                    <ui:TextField picking-mode="Ignore" label="TaskTitle" value="filler text" name="TitleTextField" />
-                    <ui:EnumField label="Status" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="StatusEnumField" />
-                    <ui:EnumField label="Priority" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="PriorityEnumField" />
-                    <ui:TextField picking-mode="Ignore" label="Memo" value="filler text" name="MemoTextField" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="DueTextField" />
-                </ui:VisualElement>
+            <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: flex;">
+                <ui:TextField picking-mode="Ignore" label="TaskTitle" value="filler text" name="TitleTextField" />
+                <ui:EnumField label="Status" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="StatusEnumField" />
+                <ui:EnumField label="Priority" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="PriorityEnumField" />
+                <ui:TextField picking-mode="Ignore" label="Memo" value="filler text" name="MemoTextField" />
+                <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="DueTextField" />
             </ui:VisualElement>
-        </ui:TwoPaneSplitView>
-        <ui:VisualElement name="BottomPane" />
+        </ui:VisualElement>
     </ui:TwoPaneSplitView>
 </ui:UXML>
