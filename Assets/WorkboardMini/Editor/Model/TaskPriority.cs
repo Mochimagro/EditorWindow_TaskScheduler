@@ -1,4 +1,6 @@
 public enum TaskPriority
 {
-    Low,Mid,High
+    Low = default,
+    Mid,
+    High
 }

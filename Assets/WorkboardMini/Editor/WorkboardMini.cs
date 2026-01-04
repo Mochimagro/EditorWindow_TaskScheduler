@@ -92,7 +92,9 @@ public class WorkboardMini : EditorWindow
 
     private void ShowSelectedTaskItemDetail(TaskItem selected)
     {
-        if (selected == null) 
+        _selectedTaskItem = selected;
+
+        if (_selectedTaskItem == null) 
         {
             _placeholder.style.display = DisplayStyle.Flex;
             _taskDetail.style.display = DisplayStyle.None;
@@ -103,18 +105,41 @@ public class WorkboardMini : EditorWindow
         _taskDetail.style.display = DisplayStyle.Flex;
 
         var titleTextField = _taskDetail.Q<TextField>("TitleTextField");
+        titleTextField.value = _selectedTaskItem.Title;
+        titleTextField.RegisterValueChangedCallback((value) =>
+        {
+            _selectedTaskItem.Title = value.newValue;
+        });
+
         var statusEnumField = _taskDetail.Q<EnumField>("StatusEnumField");
-        statusEnumField.Init(TaskStatus.Done);
+        statusEnumField.Init(TaskStatus.ToDo);
+        statusEnumField.value = _selectedTaskItem.Status;
+        statusEnumField.RegisterValueChangedCallback((value) =>
+        {
+            _selectedTaskItem.Status = (TaskStatus)value.newValue;
+        });
+
         var priorityEnumField = _taskDetail.Q<EnumField>("PriorityEnumField");
         priorityEnumField.Init(TaskPriority.Low);
+        priorityEnumField.value = _selectedTaskItem.Priority;
+        priorityEnumField.RegisterValueChangedCallback((value) =>
+        {
+            _selectedTaskItem.Priority = (TaskPriority)value.newValue;
+        });
+        
         var memoTextField = _taskDetail.Q<TextField>("MemoTextField");
+        memoTextField.value = _selectedTaskItem.Memo;
+        memoTextField.RegisterValueChangedCallback((value) =>
+        {
+            _selectedTaskItem.Memo = value.newValue;
+        });
+        
         var dueTextField = _taskDetail.Q<TextField>("DueTextField");
-
-        titleTextField.value = selected.Title;
-        statusEnumField.value = selected.Status;
-        priorityEnumField.value = selected.Priority;
-        memoTextField.value = selected.Memo;
-        dueTextField.value = selected.DueDate;
+        dueTextField.value = _selectedTaskItem.DueDate;
+        dueTextField.RegisterValueChangedCallback((value) =>
+        {
+            _selectedTaskItem.DueDate = value.newValue;
+        });
 
     }
 }

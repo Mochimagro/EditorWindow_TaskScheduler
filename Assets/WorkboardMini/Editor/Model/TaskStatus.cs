@@ -1,5 +1,6 @@
 public enum TaskStatus
-{ToDo,
+{
+    ToDo = default,
     Doing,
     Done
 }

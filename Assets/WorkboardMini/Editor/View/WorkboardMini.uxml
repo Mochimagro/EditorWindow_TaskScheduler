@@ -13,14 +13,14 @@
                 <ui:ListView picking-mode="Ignore" name="TaskListView" style="flex-grow: 1;" />
             </ui:VisualElement>
             <ui:VisualElement name="RightPane">
-                <ui:VisualElement name="Placeholder" style="flex-grow: 1;">
+                <ui:VisualElement name="Placeholder" style="flex-grow: 1; display: none;">
                     <ui:Label tabindex="-1" text="リストからタスクを選択してください" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 </ui:VisualElement>
-                <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: none;">
+                <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: flex;">
                     <ui:TextField picking-mode="Ignore" label="TaskTitle" value="filler text" name="TitleTextField" />
-                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="StatusEnumField" />
-                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="PriorityEnumField" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="MemoTextField" />
+                    <ui:EnumField label="Status" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="StatusEnumField" />
+                    <ui:EnumField label="Priority" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="PriorityEnumField" />
+                    <ui:TextField picking-mode="Ignore" label="Memo" value="filler text" name="MemoTextField" />
                     <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="DueTextField" />
                 </ui:VisualElement>
             </ui:VisualElement>
