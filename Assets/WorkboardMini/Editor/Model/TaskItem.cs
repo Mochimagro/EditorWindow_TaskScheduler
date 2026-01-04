@@ -7,11 +7,15 @@ using UnityEngine;
 [Serializable]public class TaskItem
 {
     [SerializeField]int _id;
-    [SerializeField] string _title;
     public string Title { get { return _title; } set {  _title = value; } }
+    [SerializeField] string _title;
+    public string Memo { get { return _memo; } set { _memo = value; } }
     [SerializeField] string _memo;
+    public TaskStatus Status { get { return _status; } set { _status = value; } }
     [SerializeField] TaskStatus _status;
+    public TaskPriority Priority { get { return _priority; } set { _priority = value; } }
     [SerializeField] TaskPriority _priority;
+    public string DueDate { get { return _dueDate; } set { _dueDate = value; } }
     [SerializeField]string _dueDate;
     long _updatedAtTicks;
 }

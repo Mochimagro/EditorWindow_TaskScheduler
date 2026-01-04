@@ -13,7 +13,8 @@ public class WorkboardMini : EditorWindow
     ListView _taskListView;
 
     VisualElement _rightPane;
-    
+    VisualElement _placeholder;
+    VisualElement _taskDetail;
 
     [MenuItem("Tools/WorkboardMini")]
     public static void ShowExample()
@@ -57,7 +58,12 @@ public class WorkboardMini : EditorWindow
 
         _taskListView.selectionChanged += selectedItems =>
         {
-            if (selectedItems == null) return;
+
+            if (selectedItems == null) 
+            {
+                ShowSelectedTaskItemDetail(null);
+                return; 
+            }
 
             foreach ( var item in selectedItems)
             {
@@ -65,6 +71,8 @@ public class WorkboardMini : EditorWindow
                 if(selected != null)
                 {
                     Debug.Log(selected.Title);
+                    ShowSelectedTaskItemDetail(selected);
+                    return;
                 }
             }
         };
@@ -74,9 +82,39 @@ public class WorkboardMini : EditorWindow
         // RightPane : タスク詳細表示・編集
         _rightPane = splitView.Q<VisualElement>("RightPane");
 
-        _leftPane.Add(new Label("LEFT"));
-        _rightPane.Add(new Label("RIGHT"));
+        _placeholder = _rightPane.Q<VisualElement>("Placeholder");
+        _taskDetail = _rightPane.Q<VisualElement>("TaskDetail");
+
+        ShowSelectedTaskItemDetail(null);
 
         root.Add(uxmlElement);
+    }
+
+    private void ShowSelectedTaskItemDetail(TaskItem selected)
+    {
+        if (selected == null) 
+        {
+            _placeholder.style.display = DisplayStyle.Flex;
+            _taskDetail.style.display = DisplayStyle.None;
+            return; 
+        }
+
+        _placeholder.style.display = DisplayStyle.None;
+        _taskDetail.style.display = DisplayStyle.Flex;
+
+        var titleTextField = _taskDetail.Q<TextField>("TitleTextField");
+        var statusEnumField = _taskDetail.Q<EnumField>("StatusEnumField");
+        statusEnumField.Init(TaskStatus.Done);
+        var priorityEnumField = _taskDetail.Q<EnumField>("PriorityEnumField");
+        priorityEnumField.Init(TaskPriority.Low);
+        var memoTextField = _taskDetail.Q<TextField>("MemoTextField");
+        var dueTextField = _taskDetail.Q<TextField>("DueTextField");
+
+        titleTextField.value = selected.Title;
+        statusEnumField.value = selected.Status;
+        priorityEnumField.value = selected.Priority;
+        memoTextField.value = selected.Memo;
+        dueTextField.value = selected.DueDate;
+
     }
 }

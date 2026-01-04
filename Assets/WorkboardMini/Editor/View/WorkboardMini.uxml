@@ -17,11 +17,11 @@
                     <ui:Label tabindex="-1" text="リストからタスクを選択してください" parse-escape-sequences="true" display-tooltip-when-elided="true" />
                 </ui:VisualElement>
                 <ui:VisualElement name="TaskDetail" style="flex-grow: 1; display: none;">
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Title" />
-                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="Status" />
-                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="Priority" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Memo" />
-                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="Due" />
+                    <ui:TextField picking-mode="Ignore" label="TaskTitle" value="filler text" name="TitleTextField" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="StatusEnumField" />
+                    <ui:EnumField label="Enum" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" value="Center" name="PriorityEnumField" />
+                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="MemoTextField" />
+                    <ui:TextField picking-mode="Ignore" label="Text Field" value="filler text" name="DueTextField" />
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:TwoPaneSplitView>
