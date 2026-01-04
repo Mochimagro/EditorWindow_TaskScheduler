@@ -53,7 +53,7 @@ public class WorkboardMini : EditorWindow
         // SplitView
         TemplateContainer splitViewHostContainer = uxmlElement.Q<TemplateContainer>();
         splitViewHostContainer.style.flexGrow = 1;
-        TwoPaneSplitView splitView = splitViewHostContainer.Q<TwoPaneSplitView>("MainSplitView");
+        TwoPaneSplitView splitView = splitViewHostContainer.Q<TwoPaneSplitView>("TaskSplitView");
 
         // LeftPane : タスクリスト
         _leftPane = splitView.Q<VisualElement>("LeftPane");
