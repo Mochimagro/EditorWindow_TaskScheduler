@@ -43,6 +43,8 @@ public class WorkboardMini : EditorWindow
         _addToolbarButton.clicked += OnClickAdd;
 
         _duplicateToolbarButton = _toolbar.Q<ToolbarButton>("DuplicateButton");
+        _duplicateToolbarButton.clicked += OnClickDuplicate;
+
         _deleteToolbarButton = _toolbar.Q<ToolbarButton>("DeleteButton");
         _saveToolbarButton = _toolbar.Q<ToolbarButton>("SaveButton");
 
@@ -208,4 +210,54 @@ public class WorkboardMini : EditorWindow
 
         return max + 1;
     }
+
+    private void OnClickDuplicate()
+    {
+        if (_workboardMiniData == null)
+        {
+            Debug.LogError("WorkboardMiniData is null. Assign or load it before using Duplicate.");
+            return;
+        }
+
+        if (_selectedTaskItem == null)
+        {
+            Debug.LogWarning("Duplicate requires a selected TaskItem.");
+            return;
+        }
+
+        Undo.RecordObject(_workboardMiniData, "Duplicate Task");
+
+        int nextId = GetNextId();
+
+        // 複製（TaskItem の命名に合わせて全フィールドをコピー）
+        var duplicated = new TaskItem
+        {
+            Id = nextId,
+            Title = $"{_selectedTaskItem.Title} (Copy)",
+            Memo = _selectedTaskItem.Memo,
+            Status = _selectedTaskItem.Status,
+            Priority = _selectedTaskItem.Priority,
+            DueDate = _selectedTaskItem.DueDate,
+            UpdatedAtTicks = System.DateTime.UtcNow.Ticks
+        };
+
+        // 元の直後に挿入（見た目が分かりやすい）
+        int srcIndex = _workboardMiniData.Items.IndexOf(_selectedTaskItem);
+        int insertIndex = (srcIndex >= 0) ? (srcIndex + 1) : _workboardMiniData.Items.Count;
+        _workboardMiniData.Items.Insert(insertIndex, duplicated);
+
+        // 保存対象として Dirty
+        EditorUtility.SetDirty(_workboardMiniData);
+
+        // ListView 更新（要素数が変わるので Rebuild が確実）
+        _taskListView?.Rebuild();
+
+        // 複製した行を選択してスクロール
+        if (_taskListView != null)
+        {
+            _taskListView.SetSelection(insertIndex);
+            _taskListView.ScrollToItem(insertIndex);
+        }
+    }
+
 }
