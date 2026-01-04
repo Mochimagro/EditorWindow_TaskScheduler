@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,6 +9,12 @@ public class WorkboardMini : EditorWindow
 
     [SerializeField] private WorkboardMiniData _workboardMiniData = null;
     private TaskItem _selectedTaskItem;
+
+    Toolbar _toolbar;
+    ToolbarButton _addToolbarButton;
+    ToolbarButton _deleteToolbarButton;
+    ToolbarButton _duplicateToolbarButton;
+    ToolbarButton _saveToolbarButton;
 
     VisualElement _leftPane;
     ListView _taskListView;
@@ -30,10 +37,20 @@ public class WorkboardMini : EditorWindow
 
         VisualElement uxmlElement = m_VisualTreeAsset.Instantiate();
         
+        // Toolber
+        _toolbar = uxmlElement.Q<Toolbar>();
+        _addToolbarButton = _toolbar.Q<ToolbarButton>("AddButton");
+        _addToolbarButton.clicked += OnClickAdd;
+
+        _duplicateToolbarButton = _toolbar.Q<ToolbarButton>("DuplicateButton");
+        _deleteToolbarButton = _toolbar.Q<ToolbarButton>("DeleteButton");
+        _saveToolbarButton = _toolbar.Q<ToolbarButton>("SaveButton");
+
+        // SplitView
         TemplateContainer splitViewHostContainer = uxmlElement.Q<TemplateContainer>();
         splitViewHostContainer.style.flexGrow = 1;
         TwoPaneSplitView splitView = splitViewHostContainer.Q<TwoPaneSplitView>("MainSplitView");
-        
+
         // LeftPane : タスクリスト
         _leftPane = splitView.Q<VisualElement>("LeftPane");
         _taskListView = _leftPane.Q<ListView>("TaskListView");
@@ -141,5 +158,54 @@ public class WorkboardMini : EditorWindow
             _selectedTaskItem.DueDate = value.newValue;
         });
 
+    }
+
+    private void OnClickAdd()
+    {
+        if (_workboardMiniData == null)
+        {
+            Debug.LogError("WorkboardMiniData is null. Assign or load it before using Add.");
+            return;
+        }
+
+        Undo.RecordObject(_workboardMiniData, "Add Task");
+
+        int nextId = GetNextId();
+
+        var newItem = new TaskItem
+        {
+            Id = nextId,
+            Title = $"New Task {nextId}",
+            Memo = "",
+            Status = TaskStatus.ToDo,
+            Priority = TaskPriority.Mid,
+            DueDate = "",
+            UpdatedAtTicks = System.DateTime.UtcNow.Ticks
+        };
+
+        _workboardMiniData.Items.Add(newItem);
+
+        EditorUtility.SetDirty(_workboardMiniData);
+
+        _taskListView?.Rebuild();
+
+        // 追加した行を選択状態にする
+        if (_taskListView != null)
+        {
+            int index = _workboardMiniData.Items.Count - 1;
+
+            // selectionType が Single であること推奨
+            _taskListView.SetSelection(index);
+            _taskListView.ScrollToItem(index);
+        }
+    }
+    private int GetNextId()
+    {
+        int max = 0;
+        var items = _workboardMiniData.Items;
+        for (int i = 0; i < items.Count; i++)
+            if (items[i].Id > max) max = items[i].Id;
+
+        return max + 1;
     }
 }

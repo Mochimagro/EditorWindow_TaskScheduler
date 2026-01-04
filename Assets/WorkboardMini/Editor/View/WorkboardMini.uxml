@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
     <Style src="project://database/Assets/WorkboardMini/Editor/View/WorkboardMini.uss?fileID=7433441132597879392&amp;guid=e5b2c54e28ea1694096c371f9f259154&amp;type=3#WorkboardMini" />
-    <uie:Toolbar>
+    <uie:Toolbar name="Toolbar">
         <uie:ToolbarButton text="Add" parse-escape-sequences="true" display-tooltip-when-elided="true" name="AddButton" />
         <uie:ToolbarButton text="Duplicate" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DuplicateButton" />
         <uie:ToolbarButton text="Delete" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DeleteButton" />
@@ -8,7 +8,7 @@
         <uie:ToolbarSearchField name="Search" />
     </uie:Toolbar>
     <ui:TwoPaneSplitView name="MainSplitView" orientation="Vertical" class="unity-two-pane-split-view" style="height: auto;">
-        <ui:TwoPaneSplitView name="MainSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
+        <ui:TwoPaneSplitView name="TaskSplitView" orientation="Horizontal" class="unity-two-pane-split-view" style="height: auto;">
             <ui:VisualElement name="LeftPane">
                 <ui:ListView picking-mode="Ignore" name="TaskListView" style="flex-grow: 1;" />
             </ui:VisualElement>
